@@ -1,10 +1,10 @@
-## Estudo LUA
+# Estudo LUA
 
-## Um compilado de mini projetos para estudar a Linguagem LUA e bibliotecas
+### Um compilado de mini projetos para estudar a Linguagem LUA e bibliotecas
 
-## mini projetos:
+### mini projetos:
 
-**- Seletor**
-**- Calculadora automatica simples**
-**- Calculadora**
-**- Lista ToDo**
+**- Seletor**<br>
+**- Calculadora automatica simples**<br>
+**- Calculadora**<br>
+**- Lista ToDo**<br>
