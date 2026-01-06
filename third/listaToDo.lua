@@ -6,16 +6,19 @@ function Nova()
     print("Para tirar um campo de sua Lista digite 3 nele")
     ::reeCad::
 
-    for i, Campo in ipairs(Campos) do
+    for _, Campo in ipairs(Campos) do
         local Invalido = false
-        ::nextMark::
+        local retirado = false
+
+
         if Campo == "prioridade" then
             ::InsPrio::
-            if not Invalido then
+            if not Invalido and not retirado then
                 print(Campo .. ": (V = alta | M = normal  | B = baixa)")
-                local Valor = string.lower(io.read())
+                local Valor = string.lower(io.read("l")) -- tudo minusculo
                 if Valor == "3" then
                     print("Campo ".. Campo .." Retirado")
+                    retirado = true
                     goto nextMark
                 elseif Valor ~= "m" and Valor ~= "v" and Valor ~= "b" then
                     Invalido = true;
@@ -23,7 +26,7 @@ function Nova()
                 else
                     Lista[Campo] = Valor
                 end
-            elseif Invalido then
+            elseif Invalido and not retirado then
                 print("Valor invalido para " .. Campo .. "!")
                 Invalido = false
                 goto InsPrio
@@ -31,16 +34,26 @@ function Nova()
 
         elseif Campo == "data" then
             ::dataMark::
+            local invalidoDate = false
             print(Campo .. ": ")
             local Data = io.read()
             if Data == "3" then
                 print("Campo ".. Campo .." Retirado")
                 goto nextMark
             else
-                local dia, mes, ano = Data:match("^(%d%d)/(%d%d)/(%d%d%d%d)$") -- validar formato
+                local dia, mes, ano = Data:match("^(%d%d)".."/".."(%d%d)" .. "/".."(%d%d%d%d)$") -- validar formato com :match, %d, para permitir só numeros
+                dia, mes, ano = tonumber(dia), tonumber(mes), tonumber(ano)
                 if dia and mes and ano then
-                    print("Data valida:" .. dia .. mes .. ano)
-                    Lista[Campo] = Data
+                    if dia <= 31 and dia >= 1 and mes >= 1 and mes <= 12 and ano > 0 then
+                        print("Data valida:" .. Data)
+                        Lista[Campo] = Data
+                    else
+                        invalidoDate = true
+                    end
+                    if invalidoDate then
+                        print("dados invalidos:\n dia n pode ser maior que 31 \n mês tem que ser entre 0 e 12 \n ano tem que ser valido")
+                        goto dataMark
+                    end
                 else
                     print("Formato invalido! Use dd/mm/aaaa")
                     goto dataMark
@@ -61,11 +74,12 @@ function Nova()
                     print("Campo ".. Campo .." Retirado")
                     goto nextMark
                 end
-                
+
             else
                 Lista[Campo] = dado
             end
         end
+        ::nextMark::
     end
 
     print("confirme os dados: ")
@@ -140,7 +154,7 @@ function Alt()
         print("Opcoes: " .. listaCampos .. ":")
         local dado = string.lower(io.read())
 
-        for i, itens in pairs(Campos) do
+        for _, itens in pairs(Campos) do
             if itens == dado then
                 valido = true
             end
@@ -247,7 +261,7 @@ function Cons()
 
     -- insere o valor em outra para n alterar a original
     local listaExibida = {}
-    for i, item in ipairs(Listas) do
+    for _, item in ipairs(Listas) do
         table.insert(listaExibida, item)
     end
 
@@ -259,9 +273,12 @@ function Cons()
             return a.titulo < b.titulo -- ordem alfabética pelo titulo
         end)
     elseif response == 3 then
-        priValor = {v = 1, m = 2, b = 3}
+        local priValor = {v = 1, m = 2, b = 3}
         table.sort(listaExibida, function (a, b) --func. interna comparação
-            return priValor[a.prioridade] < priValor[b.prioridade]-- ordem prioridade
+            local pa = priValor[a.prioridade] or math.huge -- math.huge se a primeira for falsa joga para o final
+            local pb = priValor[b.prioridade] or math.huge
+            return pa < pb
+            -- return priValor[a.prioridade] < priValor[b.prioridade]-- ordem prioridade
         end)
     elseif response == 0 then
         return
@@ -271,7 +288,7 @@ function Cons()
     end
     if #listaExibida ~= 0 then
         for chave, item in ipairs(listaExibida) do -- ipairs para respeitar o sort
-            print(chave)
+            print("\n" .. chave .. ": ")
             for _, campo in ipairs(Campos) do
                 if item[campo] then
                     local valor = item[campo]
@@ -317,21 +334,25 @@ while true do
         -- goto rotuloReiniciar -- ir até o rotulo
     else
         if request == "nova" then
+            print("\n")
             Nova()
         elseif request == "alterar" then
+            print("\n")
             Alt()
         elseif request == "excluir" then
+            print("\n")
             Exc()
         elseif request == "atribuir" then
+            print("\n")
             Atribuir()
         elseif request == "consultar" then
+            print("\n")
             Cons()
         elseif request == "0" then
             dofile("select.lua")
         else
+            print("\n")
             print("acao invalida")
         end
     end
-    -- rotulo para pular em caso de falha
-    ::rotuloReiniciar::
 end
