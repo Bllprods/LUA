@@ -1,4 +1,4 @@
--- escolher Projeto 
+-- escolher Projeto
 
 print("PROJETOS: ")
 io.write("Sair -- CODE 0\n")
