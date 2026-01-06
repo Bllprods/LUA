@@ -1,54 +1,48 @@
-# 🌙 CLI To-Do List Manager | Dynamic Lua Engine
+<h1 align="center">ToDo List em Lua</h1>
 
-![Lua](https://img.shields.io/badge/Language-Lua-blue?style=for-the-badge&logo=lua)
-![Status](https://img.shields.io/badge/Status-Functional-success?style=for-the-badge)
-![Environment](https://img.shields.io/badge/Environment-CLI-lightgrey?style=for-the-badge)
+<p align="center">
+  sistema de ToDo List executada via Terminal, desenvolvida em Lua, para estudar controle e validação de dados
+</p>
 
-Este projeto é um Gerenciador de Tarefas desenvolvido em **Lua**, focado em demonstrar conceitos de **arquitetura de dados dinâmica** e **validação de regras de negócio**. Diferente de listas estáticas, o sistema se comporta como um mini-ERP, permitindo que a estrutura das informações evolua conforme a necessidade do usuário.
+<p align="center">
+  <img src="https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white">
+  <img src="https://img.shields.io/badge/Terminal-000000?style=for-the-badge&logo=gnubash&logoColor=white">
+</p>
 
----
+<p align="center">
+  📌 Projeto pessoal • 🖥️ CLI • 📂 Código de Estudo
+</p>
 
-## 💎 Diferenciais Técnicos
+<div align="center">
+  
+  ![Lua](https://img.shields.io/badge/Language-Lua-blue?style=for-the-badge&logo=lua)
+  ![Status](https://img.shields.io/badge/Status-Functional-success?style=for-the-badge)
+  ![Funcionamento](https://img.shields.io/badge/Environment-CLI-lightgrey?style=for-the-badge)
+</div>
 
-### 🧩 Esquema de Dados Mutável (Dynamic Schema)
-O sistema permite a **injeção de campos em tempo de execução**. Através da função `Atribuir()`, o usuário pode adicionar novas chaves (como "Site", "Custo" ou "Responsável") que são automaticamente integradas ao fluxo de cadastro e consulta.
-
-### 🛡️ Engine de Validação e Robustez
-Implementação de camadas de proteção contra dados inconsistentes:
-* **Validação de Data Real:** Algoritmo que valida se o dia, mês e ano existem no calendário gregoriano.
-* **Pattern Matching:** Uso de expressões regulares nativas do Lua para garantir o formato `dd/mm/aaaa`.
-* **Campos Mandatórios:** Proteção contra a remoção de chaves críticas como "Título" e "Conteúdo".
-
-### 📊 Algoritmos de Ordenação Customizada
-O módulo de consulta utiliza funções de alta ordem (`table.sort`) para organizar as informações:
-* **Ordenação Alfabética:** Organização por título.
-* **Peso Semântico:** Ordenação lógica por prioridade (Alta > Média > Baixa), mapeando valores simbólicos para pesos numéricos.
+Este projeto é um Gerenciador de Tarefas desenvolvido em **Lua**, feito para estudar alguns conceitos de controle da dados e validações em **LUA**. Diferente de listas estáticas, o mini-sistema permite mudanças em sua estrutura, permitindo que sua base de informações evolua conforme a necessidade do usuário.
 
 ---
+<div align="center">
+  
+  ## Funcionalidades funcionais:
+  
+  |   Funções         |  O que faz                                  |
+  |---------------------|-----------------------------------------------|
+  |  **Cadastrar Lista**  | Adiciona uma nova lista                        |
+  |  **Alterar Lista**    | Altera título, data ou qualquer outro dado    |
+  |  **Excluir Lista**    | Exclui uma das listas cadastradas             |
+  |  **Atribuir Campo**   | Permite a inclusão de um novo campo           |
+  |  **Consultar Listas** | Mostra todas as listas cadastradas            |
 
-## 📸 Demonstração de Funcionalidades
+  ## Funcionalidades Futuras:
+  
+  |   Funções         |  O que faz                                  |
+  |----------------------|-----------------------------------------------|
+  |  **Lista para TXT**  | exportar Lista para .txt                       |
+  |  **Leitura de TXT/Automação**    | ler os dados de um TXT e se tiver uma lista, importar    |
+  |  **Conexão a outra lingua**    | tentar conectar a outra linguagem como JS, PHP ou interface via JSON             |
+  |  **Conexão a banco**   | Tentar Conectar a algum banco           |
 
-| 🛠️ Cadastro e Validação | ➕ Atribuição Dinâmica |
-| :--- | :--- |
-| ![Cadastro](https://raw.githubusercontent.com/Bllprods/LUA/main/cad_funcional.png) | ![Atribuição](https://raw.githubusercontent.com/Bllprods/LUA/main/Atribuicao.png) |
-| *Interface de cadastro com confirmação de dados.* | *Injetando novos campos na estrutura do sistema.* |
+</div>
 
-| ⚠️ Tratamento de Erros | 🔍 Filtros e Ordenação |
-| :--- | :--- |
-| ![Erros](https://raw.githubusercontent.com/Bllprods/LUA/main/cad_Erros.png) | ![Consulta](https://raw.githubusercontent.com/Bllprods/LUA/main/cons3.png) |
-| *Proteção contra formatos de data inválidos.* | *Exibição organizada por prioridade e novos campos.* |
-
----
-
-## 🛠️ Tecnologias e Conceitos Aplicados
-* **Linguagem:** Lua 5.4.
-* **Data Structures:** Tabelas de hashes aninhadas em arrays.
-* **Controle de Fluxo:** Implementação de rótulos (`::goto::`) para tratamento de erros e redirecionamento de menu.
-* **CRUD Operations:** Busca por strings, atualização seletiva e remoção segura de índices.
-
-## 🚀 Como Executar
-1. Certifique-se de ter o **Lua** instalado.
-2. Clone este repositório.
-3. Execute o arquivo principal:
-```bash
-lua listaToDo.lua
